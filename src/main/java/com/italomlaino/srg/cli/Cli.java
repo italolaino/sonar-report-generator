@@ -10,11 +10,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 
-public class MainCLI {
+public class Cli {
 
     private static final String DEFAULT_COMMAND = "sonarqube";
 
-    public static void main(String[] args) throws AnalyserException, FileNotFoundException {
+    public void run(String[] args) throws AnalyserException, FileNotFoundException {
         File projectDir = getProjectDir(args);
         String execCommand = getExecCommand(args);
 
@@ -26,17 +26,17 @@ public class MainCLI {
         exporter.generate(report);
     }
 
-    private static String getExecCommand(String[] args) {
+    private String getExecCommand(String[] args) {
         return args.length > 1 ?
                 args[1] :
                 DEFAULT_COMMAND;
     }
 
-    private static String getCurrentDirectory() {
+    private String getCurrentDirectory() {
         return Paths.get("").toAbsolutePath().toString() + File.separator;
     }
 
-    private static File getProjectDir(String[] args) throws FileNotFoundException {
+    private File getProjectDir(String[] args) throws FileNotFoundException {
         String path = args.length > 0 ?
                 args[0] :
                 getCurrentDirectory();
