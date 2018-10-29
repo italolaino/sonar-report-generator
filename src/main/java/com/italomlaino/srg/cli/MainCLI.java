@@ -4,7 +4,6 @@ import com.italomlaino.srg.analyser.JsonReportAnalyser;
 import com.italomlaino.srg.model.Analyser;
 import com.italomlaino.srg.model.AnalyserException;
 import com.italomlaino.srg.model.Report;
-import com.italomlaino.srg.model.ReportGenerator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,7 +20,8 @@ public class MainCLI {
         Analyser analyser = new JsonReportAnalyser(execCommand);
         Report report = analyser.analyse(projectDir);
 
-        ReportGenerator exporter = new ConsoleReportGenerator();
+        ConsoleReportGenerator exporter = new ConsoleReportGenerator();
+        exporter.setPrintStream(System.out);
         exporter.generate(report);
     }
 

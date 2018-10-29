@@ -5,6 +5,7 @@ import com.italomlaino.srg.model.Report;
 import com.italomlaino.srg.model.ReportGenerator;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,40 +18,49 @@ public class ConsoleReportGenerator implements ReportGenerator {
     private static final String SEPARATOR = "----------------------------------";
     private static final String HEADER_FORMAT = "%s\n\n%s [%d]:\n\n";
 
+    private PrintStream printStream;
+
     public void generate(Report report) {
         StringBuilder sb = new StringBuilder();
 
-        List<Issue> newIssues = report
-                .getIssues()
-                .stream()
-                .filter(Issue::isNew)
-                .sorted(Comparator.comparing(Issue::getCreationDate))
-                .collect(Collectors.toList());
+        List<Issue> newIssues = getIssues(report, true);
 
+        generateHeader(sb, newIssues, NEWEST_ISSUES_HEADER);
+        generateRows(sb, newIssues);
+
+        List<Issue> oldIssues = getIssues(report, false);
+
+        generateHeader(sb, oldIssues, OLD_ISSUES_HEADER);
+        generateRows(sb, oldIssues);
+
+        print(sb);
+    }
+
+    private void print(StringBuilder sb) {
+        if (printStream != null) {
+            printStream.println(sb);
+        }
+    }
+
+    private void generateHeader(StringBuilder sb, List<Issue> issues, String issueHeader) {
         sb.append(String.format(
-                HEADER_FORMAT, SEPARATOR, NEWEST_ISSUES_HEADER,
-                newIssues.size()));
+                HEADER_FORMAT, SEPARATOR, issueHeader,
+                issues.size()));
+    }
 
+    private void generateRows(StringBuilder sb, List<Issue> newIssues) {
         newIssues.forEach(
                 issue -> sb.append(generateRow(issue))
         );
+    }
 
-        List<Issue> oldIssues = report
+    private List<Issue> getIssues(Report report, boolean isNew) {
+        return report
                 .getIssues()
                 .stream()
-                .filter(issue -> !issue.isNew())
+                .filter(issue -> issue.isNew() == isNew)
                 .sorted(Comparator.comparing(Issue::getCreationDate))
                 .collect(Collectors.toList());
-
-        sb.append(String.format(
-                HEADER_FORMAT, SEPARATOR, OLD_ISSUES_HEADER,
-                oldIssues.size()));
-
-        oldIssues.forEach(
-                issue -> sb.append(generateRow(issue))
-        );
-
-        System.out.println(sb);
     }
 
     private String generateRow(Issue issue) {
@@ -61,5 +71,9 @@ public class ConsoleReportGenerator implements ReportGenerator {
                 issue.isNew() ? "*" : issue.getCreationDate(),
                 File.separatorChar + issue.getComponent().replace(':', File.separatorChar),
                 issue.getLine());
+    }
+
+    public void setPrintStream(PrintStream printStream) {
+        this.printStream = printStream;
     }
 }
