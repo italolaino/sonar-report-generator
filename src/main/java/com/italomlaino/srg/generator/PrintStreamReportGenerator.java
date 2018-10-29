@@ -22,6 +22,10 @@ public class PrintStreamReportGenerator implements ReportGenerator {
 
     private PrintStream printStream;
 
+    public PrintStreamReportGenerator(PrintStream printStream) {
+        this.printStream = printStream;
+    }
+
     public void generate(Report report) {
         StringBuilder sb = new StringBuilder();
 
@@ -73,9 +77,5 @@ public class PrintStreamReportGenerator implements ReportGenerator {
                 issue.isNew() ? NEWEST_ISSUE_DATE_SYMBOL : issue.getCreationDate(),
                 File.separatorChar + issue.getComponent().replace(COMPONENT_OLD_SEPARATOR, File.separatorChar),
                 issue.getLine());
-    }
-
-    public void setPrintStream(PrintStream printStream) {
-        this.printStream = printStream;
     }
 }

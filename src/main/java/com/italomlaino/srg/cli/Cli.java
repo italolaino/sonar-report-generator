@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 
 public class Cli {
 
-    private static final String DEFAULT_COMMAND = "sonarqube";
+    private static final String DEFAULT_TASK_NAME = "sonarqube";
 
     public void run(String[] args) throws AnalyserException, FileNotFoundException {
         File projectDir = getProjectDir(args);
@@ -21,15 +21,14 @@ public class Cli {
         Analyser analyser = new GradleTaskReportAnalyser(execCommand);
         Report report = analyser.analyse(projectDir);
 
-        PrintStreamReportGenerator exporter = new PrintStreamReportGenerator();
-        exporter.setPrintStream(System.out);
+        PrintStreamReportGenerator exporter = new PrintStreamReportGenerator(System.out);
         exporter.generate(report);
     }
 
     private String getExecCommand(String[] args) {
         return args.length > 1 ?
                 args[1] :
-                DEFAULT_COMMAND;
+                DEFAULT_TASK_NAME;
     }
 
     private String getCurrentDirectory() {

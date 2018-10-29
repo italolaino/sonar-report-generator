@@ -25,10 +25,10 @@ public class GradleTaskReportAnalyser implements Analyser {
 
     private static final String FULL_COMMAND_FORMAT = "%s %s %s";
 
-    private final String execCommand;
+    private final String taskName;
 
-    public GradleTaskReportAnalyser(String execCommand) {
-        this.execCommand = execCommand;
+    public GradleTaskReportAnalyser(String taskName) {
+        this.taskName = taskName;
     }
 
     private String loadReport(File projectDir)
@@ -43,27 +43,27 @@ public class GradleTaskReportAnalyser implements Analyser {
         return new ObjectMapper().readValue(contents, Report.class);
     }
 
-    private void runSonar(File path, String execCommand)
+    private void runSonar(File projectDir)
             throws IOException, InterruptedException {
         Runtime.getRuntime()
-                .exec(getFullCommand(execCommand), null, path)
+                .exec(getFullCommand(), null, projectDir)
                 .waitFor();
     }
 
-    private String getFullCommand(String execCommand) {
+    private String getFullCommand() {
         String osValue = System.getProperty(OS_NAME_PROPERTY);
 
         if (osValue.contains(OS_NAME_PROPERTY_WINDOWS_VALUE)) {
-            return String.format(FULL_COMMAND_FORMAT, WINDOWS_GRADLEW_BIN, execCommand, COMMAND_PARAMETERS);
+            return String.format(FULL_COMMAND_FORMAT, WINDOWS_GRADLEW_BIN, taskName, COMMAND_PARAMETERS);
         } else {
-            return String.format(FULL_COMMAND_FORMAT, NON_WINDOWS_GRADLEW_BIN, execCommand, COMMAND_PARAMETERS);
+            return String.format(FULL_COMMAND_FORMAT, NON_WINDOWS_GRADLEW_BIN, taskName, COMMAND_PARAMETERS);
         }
     }
 
     @Override
     public Report analyse(File projectDir) throws AnalyserException {
         try {
-            runSonar(projectDir, execCommand);
+            runSonar(projectDir);
 
             String contents = loadReport(projectDir);
 
