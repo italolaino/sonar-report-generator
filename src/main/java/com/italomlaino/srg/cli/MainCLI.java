@@ -1,10 +1,10 @@
-package com.srg.cli;
+package com.italomlaino.srg.cli;
 
-import com.srg.analyser.JsonReportAnalyser;
-import com.srg.model.Analyser;
-import com.srg.model.AnalyserException;
-import com.srg.model.Report;
-import com.srg.model.ReportGenerator;
+import com.italomlaino.srg.analyser.JsonReportAnalyser;
+import com.italomlaino.srg.model.Analyser;
+import com.italomlaino.srg.model.AnalyserException;
+import com.italomlaino.srg.model.Report;
+import com.italomlaino.srg.model.ReportGenerator;
 
 import java.io.File;
 import java.io.FileNotFoundException;

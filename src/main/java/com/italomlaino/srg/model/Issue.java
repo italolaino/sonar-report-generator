@@ -1,4 +1,4 @@
-package com.srg.model;
+package com.italomlaino.srg.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

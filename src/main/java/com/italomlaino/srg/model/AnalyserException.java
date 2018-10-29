@@ -1,4 +1,4 @@
-package com.srg.model;
+package com.italomlaino.srg.model;
 
 public class AnalyserException extends Exception {
 

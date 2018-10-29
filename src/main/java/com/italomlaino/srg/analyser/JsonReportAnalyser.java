@@ -1,9 +1,9 @@
-package com.srg.analyser;
+package com.italomlaino.srg.analyser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.srg.model.Analyser;
-import com.srg.model.AnalyserException;
-import com.srg.model.Report;
+import com.italomlaino.srg.model.Analyser;
+import com.italomlaino.srg.model.AnalyserException;
+import com.italomlaino.srg.model.Report;
 
 import java.io.File;
 import java.io.IOException;

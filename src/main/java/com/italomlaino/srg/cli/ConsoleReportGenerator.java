@@ -1,8 +1,8 @@
-package com.srg.cli;
+package com.italomlaino.srg.cli;
 
-import com.srg.model.Issue;
-import com.srg.model.Report;
-import com.srg.model.ReportGenerator;
+import com.italomlaino.srg.model.Issue;
+import com.italomlaino.srg.model.Report;
+import com.italomlaino.srg.model.ReportGenerator;
 
 import java.io.File;
 import java.util.Comparator;
