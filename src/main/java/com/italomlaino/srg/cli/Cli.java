@@ -15,11 +15,18 @@ public class Cli {
     private static final String DEFAULT_TASK_NAME = "sonarqube";
 
     public void run(String[] args) throws AnalyserException, FileNotFoundException {
+        System.out.println("Verifying arguments...");
+
         File projectDir = getProjectDir(args);
         String execCommand = getExecCommand(args);
 
+        System.out.println(String.format("Analysing project %s...", projectDir.getAbsolutePath()));
+
         Analyser analyser = new GradleTaskReportAnalyser(execCommand);
         Report report = analyser.analyse(projectDir);
+
+
+        System.out.println("Generating report...");
 
         PrintStreamReportGenerator exporter = new PrintStreamReportGenerator(System.out);
         exporter.generate(report);
