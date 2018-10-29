@@ -17,6 +17,8 @@ public class PrintStreamReportGenerator implements ReportGenerator {
     private static final String ROW_FORMAT = "[%s] %s [%s]\n%s:%s\n\n";
     private static final String SEPARATOR = "----------------------------------";
     private static final String HEADER_FORMAT = "%s\n\n%s [%d]:\n\n";
+    private static final String NEWEST_ISSUE_DATE_SYMBOL = "*";
+    private static final char COMPONENT_OLD_SEPARATOR = ':';
 
     private PrintStream printStream;
 
@@ -68,8 +70,8 @@ public class PrintStreamReportGenerator implements ReportGenerator {
                 ROW_FORMAT,
                 issue.getSeverity(),
                 issue.getMessage(),
-                issue.isNew() ? "*" : issue.getCreationDate(),
-                File.separatorChar + issue.getComponent().replace(':', File.separatorChar),
+                issue.isNew() ? NEWEST_ISSUE_DATE_SYMBOL : issue.getCreationDate(),
+                File.separatorChar + issue.getComponent().replace(COMPONENT_OLD_SEPARATOR, File.separatorChar),
                 issue.getLine());
     }
 

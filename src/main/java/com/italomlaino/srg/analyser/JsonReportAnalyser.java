@@ -23,6 +23,8 @@ public class JsonReportAnalyser implements Analyser {
 
     private static final String COMMAND_PARAMETERS = "-Dsonar.issuesReport.json.enable=true -Dsonar.report.export.path=report.json";
 
+    private static final String FULL_COMMAND_FORMAT = "%s %s %s";
+
     private final String execCommand;
 
     public JsonReportAnalyser(String execCommand) {
@@ -52,9 +54,9 @@ public class JsonReportAnalyser implements Analyser {
         String osValue = System.getProperty(OS_NAME_PROPERTY);
 
         if (osValue.contains(OS_NAME_PROPERTY_WINDOWS_VALUE)) {
-            return WINDOWS_GRADLEW_BIN + " " + execCommand + " " + COMMAND_PARAMETERS;
+            return String.format(FULL_COMMAND_FORMAT, WINDOWS_GRADLEW_BIN, execCommand, COMMAND_PARAMETERS);
         } else {
-            return NON_WINDOWS_GRADLEW_BIN + " " + execCommand + " " + COMMAND_PARAMETERS;
+            return String.format(FULL_COMMAND_FORMAT, NON_WINDOWS_GRADLEW_BIN, execCommand, COMMAND_PARAMETERS);
         }
     }
 
@@ -68,7 +70,7 @@ public class JsonReportAnalyser implements Analyser {
             return parseReport(contents);
 
         } catch (IOException | InterruptedException e) {
-            throw new AnalyserException("Invalid execution command", e);
+            throw new AnalyserException(e);
         }
     }
 }
