@@ -1,4 +1,4 @@
-package com.italomlaino.srg.cli;
+package com.italomlaino.srg.generator;
 
 import com.italomlaino.srg.model.Issue;
 import com.italomlaino.srg.model.Report;
@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ConsoleReportGenerator implements ReportGenerator {
+public class PrintStreamReportGenerator implements ReportGenerator {
 
     private static final String NEWEST_ISSUES_HEADER = "Newest issues";
     private static final String OLD_ISSUES_HEADER = "Old issues";

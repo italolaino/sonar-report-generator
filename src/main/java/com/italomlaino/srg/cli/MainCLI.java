@@ -1,6 +1,7 @@
 package com.italomlaino.srg.cli;
 
 import com.italomlaino.srg.analyser.JsonReportAnalyser;
+import com.italomlaino.srg.generator.PrintStreamReportGenerator;
 import com.italomlaino.srg.model.Analyser;
 import com.italomlaino.srg.model.AnalyserException;
 import com.italomlaino.srg.model.Report;
@@ -20,7 +21,7 @@ public class MainCLI {
         Analyser analyser = new JsonReportAnalyser(execCommand);
         Report report = analyser.analyse(projectDir);
 
-        ConsoleReportGenerator exporter = new ConsoleReportGenerator();
+        PrintStreamReportGenerator exporter = new PrintStreamReportGenerator();
         exporter.setPrintStream(System.out);
         exporter.generate(report);
     }
