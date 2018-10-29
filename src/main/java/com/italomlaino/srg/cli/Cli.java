@@ -1,6 +1,6 @@
 package com.italomlaino.srg.cli;
 
-import com.italomlaino.srg.analyser.JsonReportAnalyser;
+import com.italomlaino.srg.analyser.GradleTaskReportAnalyser;
 import com.italomlaino.srg.generator.PrintStreamReportGenerator;
 import com.italomlaino.srg.model.Analyser;
 import com.italomlaino.srg.model.AnalyserException;
@@ -18,7 +18,7 @@ public class Cli {
         File projectDir = getProjectDir(args);
         String execCommand = getExecCommand(args);
 
-        Analyser analyser = new JsonReportAnalyser(execCommand);
+        Analyser analyser = new GradleTaskReportAnalyser(execCommand);
         Report report = analyser.analyse(projectDir);
 
         PrintStreamReportGenerator exporter = new PrintStreamReportGenerator();

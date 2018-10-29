@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class JsonReportAnalyser implements Analyser {
+public class GradleTaskReportAnalyser implements Analyser {
 
     private static final String DEFAULT_JSON_REPORT_PATH = "build/sonar/report.json";
 
@@ -27,7 +27,7 @@ public class JsonReportAnalyser implements Analyser {
 
     private final String execCommand;
 
-    public JsonReportAnalyser(String execCommand) {
+    public GradleTaskReportAnalyser(String execCommand) {
         this.execCommand = execCommand;
     }
 
