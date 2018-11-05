@@ -5,7 +5,7 @@ Simple tool to replace the deprecated [Sonar Report Plugin](https://docs.sonarqu
   - <i>plugins { id "org.sonarqube" version "2.6.2" } </i>
   
 
-- Just place the [JAR](https://github.com/italomlaino/sonar-report-generator/releases) in your project root directory, or specify it in the command-line arguments, and run it through terminal one of the following command patterns: 
+- Just place the [JAR](https://github.com/italomlaino/sonar-report-generator/releases) in your project root directory, or specify it in the command-line arguments, and run it through terminal. Examples: 
 
   - <i>java -jar sonar-report-generator-*.jar</i>
  
