@@ -18,11 +18,11 @@ public class Cli {
         System.out.println("Verifying arguments...");
 
         File projectDir = getProjectDir(args);
-        String execCommand = getExecCommand(args);
+        String taskCommand = getTaskCommand(args);
 
         System.out.println(String.format("Analysing project %s...", projectDir.getAbsolutePath()));
 
-        Analyser analyser = new GradleTaskReportAnalyser(execCommand);
+        Analyser analyser = new GradleTaskReportAnalyser(taskCommand);
         Report report = analyser.analyse(projectDir);
 
 
@@ -32,7 +32,7 @@ public class Cli {
         exporter.generate(report);
     }
 
-    private String getExecCommand(String[] args) {
+    private String getTaskCommand(String[] args) {
         return args.length > 1 ?
                 args[1] :
                 DEFAULT_TASK_NAME;
