@@ -9,6 +9,7 @@ import com.italomlaino.srg.model.Report;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class Cli {
 
@@ -34,7 +35,7 @@ public class Cli {
 
     private String getTaskCommand(String[] args) {
         return args.length > 1 ?
-                args[1] :
+                String.join(" ",Arrays.copyOfRange(args, 1, args.length)) :
                 DEFAULT_TASK_NAME;
     }
 
