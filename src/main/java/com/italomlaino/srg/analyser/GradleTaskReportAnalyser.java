@@ -45,18 +45,21 @@ public class GradleTaskReportAnalyser implements Analyser {
 
     private void runSonar(File projectDir)
             throws IOException, InterruptedException {
-        Runtime.getRuntime()
-                .exec(getFullCommand(), null, projectDir)
-                .waitFor();
+        ProcessBuilder processBuilder = new ProcessBuilder(getFullCommand());
+        processBuilder.directory(projectDir);
+        processBuilder.inheritIO();
+
+        Process process = processBuilder.start();
+        process.waitFor();
     }
 
-    private String getFullCommand() {
+    private String[] getFullCommand() {
         String osValue = System.getProperty(OS_NAME_PROPERTY);
 
         if (osValue.contains(OS_NAME_PROPERTY_WINDOWS_VALUE)) {
-            return String.format(FULL_COMMAND_FORMAT, WINDOWS_GRADLEW_BIN, taskName, COMMAND_PARAMETERS);
+            return String.format(FULL_COMMAND_FORMAT, WINDOWS_GRADLEW_BIN, taskName, COMMAND_PARAMETERS).split(" ");
         } else {
-            return String.format(FULL_COMMAND_FORMAT, NON_WINDOWS_GRADLEW_BIN, taskName, COMMAND_PARAMETERS);
+            return String.format(FULL_COMMAND_FORMAT, NON_WINDOWS_GRADLEW_BIN, taskName, COMMAND_PARAMETERS).split(" ");
         }
     }
 
