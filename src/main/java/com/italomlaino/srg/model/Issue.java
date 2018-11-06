@@ -35,8 +35,8 @@ public class Issue {
         return isNew;
     }
 
-    public void setNew(boolean aNew) {
-        isNew = aNew;
+    public void setIsNew(boolean isNew) {
+        this.isNew = isNew;
     }
 
     public String getMessage() {
