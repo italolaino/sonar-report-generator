@@ -66,6 +66,7 @@ public class GradleTaskReportAnalyser implements Analyser {
     @Override
     public Report analyse(File projectDir) throws AnalyserException {
         try {
+            cleanReport(projectDir);
             runSonar(projectDir);
 
             String contents = loadReport(projectDir);
@@ -75,5 +76,10 @@ public class GradleTaskReportAnalyser implements Analyser {
         } catch (IOException | InterruptedException e) {
             throw new AnalyserException(e);
         }
+    }
+
+    private void cleanReport(File projectDir) {
+        File file = Paths.get(projectDir.getAbsolutePath(), DEFAULT_JSON_REPORT_PATH).toFile();
+        file.delete();
     }
 }
