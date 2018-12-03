@@ -16,7 +16,7 @@ public class GradleTaskReportAnalyser implements Analyser {
     private static final String DEFAULT_JSON_REPORT_PATH = "build/sonar/report.json";
 
     private static final String NON_WINDOWS_GRADLEW_BIN = "./gradlew";
-    private static final String WINDOWS_GRADLEW_BIN = "gradlew.bat";
+    private static final String WINDOWS_GRADLEW_BIN = "cmd /c gradlew.bat";
 
     private static final String OS_NAME_PROPERTY = "os.name";
     private static final String OS_NAME_PROPERTY_WINDOWS_VALUE = "Windows";
